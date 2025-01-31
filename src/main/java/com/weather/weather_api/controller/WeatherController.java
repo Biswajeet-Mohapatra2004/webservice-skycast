@@ -20,8 +20,8 @@ public class WeatherController {
         @GetMapping("/weather")
         public Mono<String> getWeather(
                 @RequestParam String location,
-                @RequestParam(required = false) String forecast,
-                @RequestParam(required = false) String aqi) {
+                @RequestParam(defaultValue = "") String forecast,
+                @RequestParam(defaultValue = "") String aqi) {
 
             if (!location.isEmpty()) {
                 if (forecast != null && !forecast.isEmpty()) {
