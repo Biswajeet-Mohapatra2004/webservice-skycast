@@ -4,10 +4,7 @@ package com.weather.weather_api.controller;
 
 import com.weather.weather_api.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 @CrossOrigin("https://skycast-theta.vercel.app")
 @RestController
@@ -20,16 +17,21 @@ public class WeatherController {
         this.weatherService = weatherService;
     }
 
-    @GetMapping("/weather/{location}")
-    public Mono<String> getWeather(@PathVariable String location) {
-        return weatherService.getWeatherData(location);
+    @GetMapping("/weather")
+    public Mono<String> getWeather(@RequestParam String location, @RequestParam String forecast,@RequestParam String aqi){
+        if (!location.isEmpty()) {
+            if (!forecast.isEmpty()) {
+                return weatherService.forecastData(location);
+            } else if (!aqi.isEmpty()) {
+                return weatherService.getAqi(location);
+            } else {
+                return weatherService.getWeatherData(location);
+            }
+        }
+        else{
+            return null;
+        }
+
     }
-    @GetMapping("/weather/forecast/{location}")
-    public Mono<String> getWeatherForecast(@PathVariable String location) {
-        return weatherService.forecastData(location);
-    }
-    @GetMapping("/weather/aqi/{location}")
-    public Mono<String> aqiData(@PathVariable String location) {
-        return weatherService.getAqi(location);
-    }
+
 }
