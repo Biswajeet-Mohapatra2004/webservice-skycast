@@ -17,46 +17,23 @@ public class WeatherController {
         this.weatherService = weatherService;
     }
 
+        @GetMapping("/weather")
+        public Mono<String> getWeather(
+                @RequestParam String location,
+                @RequestParam(required = false) String forecast,
+                @RequestParam(required = false) String aqi) {
 
-    @GetMapping("/weather")
-    public Mono<String> getWeather(@RequestParam String location, @RequestParam String forecast,@RequestParam String aqi){
-        if (!location.isEmpty()) {
-            if (!forecast.isEmpty()) {
-                return weatherService.forecastData(location);
-            } else if (!aqi.isEmpty()) {
-                return weatherService.getAqi(location);
+            if (!location.isEmpty()) {
+                if (forecast != null && !forecast.isEmpty()) {
+                    return weatherService.forecastData(location);
+                } else if (aqi != null && !aqi.isEmpty()) {
+                    return weatherService.getAqi(location);
+                } else {
+                    return weatherService.getWeatherData(location);
+                }
             } else {
-                return weatherService.getWeatherData(location);
+                return Mono.just("Location parameter is required.");
             }
         }
-        else{
-            return null;
-        }
-
-    }
-    @GetMapping("/weather")
-    public Mono<String> getWeather(@RequestParam String location, @RequestParam String forecast){
-        if (!location.isEmpty()) {
-            if (!forecast.isEmpty()) {
-                return weatherService.forecastData(location);
-            }else {
-                return weatherService.getWeatherData(location);
-            }
-        }
-        else{
-            return null;
-        }
-
-    }
-    @GetMapping("/weather")
-    public Mono<String> getWeather(@RequestParam String location){
-        if (!location.isEmpty()) {
-                return weatherService.getWeatherData(location);
-        }
-        else{
-            return null;
-        }
-
-    }
 
 }
