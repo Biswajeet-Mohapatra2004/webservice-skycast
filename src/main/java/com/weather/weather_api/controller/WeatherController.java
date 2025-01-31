@@ -34,5 +34,28 @@ public class WeatherController {
         }
 
     }
+    public Mono<String> getWeather(@RequestParam String location, @RequestParam String forecast){
+        if (!location.isEmpty()) {
+            if (!forecast.isEmpty()) {
+                return weatherService.forecastData(location);
+            }else {
+                return weatherService.getWeatherData(location);
+            }
+        }
+        else{
+            return null;
+        }
+
+    }
+
+    public Mono<String> getWeather(@RequestParam String location){
+        if (!location.isEmpty()) {
+                return weatherService.getWeatherData(location);
+        }
+        else{
+            return null;
+        }
+
+    }
 
 }
