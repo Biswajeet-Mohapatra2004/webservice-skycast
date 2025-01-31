@@ -19,7 +19,7 @@ public class WeatherController {
 
     @CrossOrigin(origins = "https://skycast-theta.vercel.app")
     @GetMapping("/weather")
-    public Mono<String> getWeather(@RequestParam String location, @RequestParam(required = false) String forecast,@RequestParam(required = false) String aqi){
+    public Mono<String> getWeather(@RequestParam String location, @RequestParam String forecast,@RequestParam String aqi){
         if (!location.isEmpty()) {
             if (!forecast.isEmpty()) {
                 return weatherService.forecastData(location);
