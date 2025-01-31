@@ -6,7 +6,7 @@ import com.weather.weather_api.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
-@CrossOrigin
+@CrossOrigin(origins = "https://skycast-theta.vercel.app/")
 @RestController
 public class WeatherController {
 
@@ -18,22 +18,33 @@ public class WeatherController {
     }
 
         @GetMapping("/weather")
-        public Mono<String> getWeather(
-                @RequestParam String location,
-                @RequestParam(defaultValue = "") String forecast,
-                @RequestParam(defaultValue = "") String aqi) {
-
-            if (!location.isEmpty()) {
-                if (forecast != null && !forecast.isEmpty()) {
-                    return weatherService.forecastData(location);
-                } else if (aqi != null && !aqi.isEmpty()) {
-                    return weatherService.getAqi(location);
-                } else {
-                    return weatherService.getWeatherData(location);
-                }
-            } else {
-                return Mono.just("Location parameter is required.");
+        public Mono<String> getWeather(@RequestParam String location) {
+             if(!location.isEmpty()){
+                 return weatherService.getWeatherData(location);
+             }
+             else{
+                 return null;
+             }
+        }
+        @GetMapping("/aqi")
+         public Mono<String> getAqi(@RequestParam String location) {
+            if(!location.isEmpty()){
+               return weatherService.getAqi(location);
+            }
+            else{
+                  return null;
             }
         }
+    @GetMapping("/forecast")
+    public Mono<String> getForecast(@RequestParam String location) {
+        if(!location.isEmpty()){
+            return weatherService.forecastData(location);
+        }
+        else{
+            return null;
+        }
+    }
+
+
 
 }
