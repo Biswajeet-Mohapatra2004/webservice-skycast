@@ -6,7 +6,7 @@ import com.weather.weather_api.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
-@CrossOrigin("https://skycast-theta.vercel.app/weather")
+@CrossOrigin("https://skycast-theta.vercel.app")
 @RestController
 public class WeatherController {
 
@@ -18,7 +18,7 @@ public class WeatherController {
     }
 
     @GetMapping("/weather")
-    public Mono<String> getWeather(@RequestParam String location, @RequestParam String forecast,@RequestParam String aqi){
+    public Mono<String> getWeather(@RequestParam String location, @RequestParam(required = false) String forecast,@RequestParam(required = false) String aqi){
         if (!location.isEmpty()) {
             if (!forecast.isEmpty()) {
                 return weatherService.forecastData(location);
