@@ -6,7 +6,7 @@ import com.weather.weather_api.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
-@CrossOrigin(origins = "https://skycast-theta.vercel.app")
+@CrossOrigin(origins ={"https://skycast-theta.vercel.app", "https://skycast-theta.vercel.app/weather","https://skycast-theta.vercel.app/aqi","https://skycast-theta.vercel.app/forecast"})
 @RestController
 public class WeatherController {
 
