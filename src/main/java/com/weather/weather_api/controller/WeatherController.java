@@ -26,24 +26,24 @@ public class WeatherController {
                  return null;
              }
         }
-//        @GetMapping("/aqi")
-//         public Mono<String> getAqi(@RequestParam String location) {
-//            if(!location.isEmpty()){
-//               return weatherService.getAqi(location);
-//            }
-//            else{
-//                  return null;
-//            }
-//        }
-//    @GetMapping("/forecast")
-//    public Mono<String> getForecast(@RequestParam String location) {
-//        if(!location.isEmpty()){
-//            return weatherService.forecastData(location);
-//        }
-//        else{
-//            return null;
-//        }
-//    }
+        @GetMapping("/aqi")
+         public Mono<String> getAqi(@RequestParam String location) {
+            if(!location.isEmpty()){
+               return weatherService.getAqi(location);
+            }
+            else{
+                  return null;
+            }
+        }
+    @GetMapping("/forecast")
+    public Mono<String> getForecast(@RequestParam String location) {
+        if(!location.isEmpty()){
+            return weatherService.forecastData(location);
+        }
+        else{
+            return null;
+        }
+    }
 
 
 
